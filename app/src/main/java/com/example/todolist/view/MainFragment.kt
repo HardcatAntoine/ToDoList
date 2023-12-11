@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todolist.R
 import com.example.todolist.databinding.FragmentMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainFragment : Fragment() {
     lateinit var binding: FragmentMainBinding
     private val adapter = NodesAdapter()
