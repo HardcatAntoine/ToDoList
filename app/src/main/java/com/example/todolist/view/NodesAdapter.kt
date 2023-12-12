@@ -4,9 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
+import com.example.todolist.data.local.Nodes
 
 class NodesAdapter : RecyclerView.Adapter<NodesViewHolder>() {
-    private var list: List<String> = listOf()
+    private var list: List<Nodes> = listOf()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NodesViewHolder {
         val holder = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_node, parent, false)
@@ -19,10 +20,10 @@ class NodesAdapter : RecyclerView.Adapter<NodesViewHolder>() {
 
     override fun onBindViewHolder(holder: NodesViewHolder, position: Int) {
         val item = list[position]
-        holder.bind()
+        holder.bind(item)
     }
 
-    fun setList(list: List<String>){
+    fun setList(list: List<Nodes>){
         this.list = list
         notifyDataSetChanged()
     }
