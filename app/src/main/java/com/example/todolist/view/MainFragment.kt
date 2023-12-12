@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todolist.R
+import com.example.todolist.data.local.Nodes
 import com.example.todolist.databinding.FragmentMainBinding
 import com.example.todolist.viewmodel.NodesViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,6 +19,12 @@ class MainFragment : Fragment() {
     lateinit var binding: FragmentMainBinding
     private val adapter = NodesAdapter()
     private val viewModel: NodesViewModel by viewModels()
+    private val clickListener = object : RemoveNodeClickListener{
+        override fun removeNode(node: Nodes) {
+            viewModel.removeNode(node)
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,6 +46,7 @@ class MainFragment : Fragment() {
 
     private fun initAdapter() {
         binding.rvNodes.adapter = adapter
+        adapter.setRemoveNodeClickListener(clickListener)
         binding.rvNodes.layoutManager = LinearLayoutManager(requireContext())
     }
 
