@@ -28,6 +28,9 @@ class CreateNodeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.topAppBar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
         binding.createBtn.setOnClickListener {
             createNode()
         }
