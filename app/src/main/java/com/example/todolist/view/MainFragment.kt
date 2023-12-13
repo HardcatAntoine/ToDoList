@@ -43,9 +43,9 @@ class MainFragment : Fragment() {
         initAdapter()
         viewModel.getNodesList()
         observers()
-        binding.addBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_createNodeFragment)
-        }
+//        binding.addBtn.setOnClickListener {
+//            findNavController().navigate(R.id.action_mainFragment_to_createNodeFragment)
+//        }
 
     }
 

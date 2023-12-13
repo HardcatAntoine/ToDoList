@@ -7,9 +7,6 @@ import com.example.todolist.databinding.ItemNodeBinding
 class NodesViewHolder(private val binding: ItemNodeBinding) : ViewHolder(binding.root) {
     fun bind(item: Nodes, clickListener: ClickListeners) {
         binding.nodeName.text = item.name
-        binding.removeBtn.setOnClickListener {
-            clickListener.removeNode(item)
-        }
         binding.cardView.setOnClickListener {
             clickListener.onItemClickListener(item)
         }

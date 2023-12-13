@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.MainFragment">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary">
@@ -18,33 +19,28 @@
             android:minHeight="?attr/actionBarSize"
             app:menu="@menu/top_app_bar"
             app:title="@string/app_name"
-            app:titleTextColor="@color/white"/>
+            app:titleTextColor="@color/white" />
 
     </com.google.android.material.appbar.AppBarLayout>
-
-
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBar"
-        style="@style/Widget.Material3.BottomAppBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:menu="@menu/bottom_app_bar" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:tint="@color/white"
-        app:backgroundTint="@color/colorPrimary"
-        app:layout_anchor="@id/bottomAppBar"
-        app:rippleColor="@color/material_dynamic_neutral80"
-        app:srcCompat="@drawable/add_icon" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvNodes"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="64dp"
-        android:layout_marginBottom="56dp" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/colorButton"
+        app:srcCompat="@drawable/add_icon"
+        android:contentDescription="@string/app_name">
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
