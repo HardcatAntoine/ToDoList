@@ -13,7 +13,9 @@ import com.example.todolist.databinding.FragmentCreateNodeBinding
 import com.example.todolist.viewmodel.CreateNodeViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 @AndroidEntryPoint
 class CreateNodeFragment : Fragment() {
@@ -40,11 +42,12 @@ class CreateNodeFragment : Fragment() {
     private fun createNode() {
         val name = binding.nodeNameTv.text.toString()
         val description = binding.descriptionTv.text.toString()
-        val time = Calendar.getInstance().time.toString()
+        val currentTime =
+            SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault()).format(Calendar.getInstance().time)
         if (name.isNullOrEmpty()) {
             showAlertDialog()
         } else {
-            viewModel.insertNode(Nodes(name, description, time))
+            viewModel.insertNode(Nodes(name, description, currentTime))
             findNavController().navigate(R.id.action_createNodeFragment_to_mainFragment)
         }
 

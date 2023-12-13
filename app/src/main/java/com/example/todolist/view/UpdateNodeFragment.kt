@@ -13,7 +13,9 @@ import com.example.todolist.databinding.FragmentUpdateNodeBinding
 import com.example.todolist.viewmodel.UpdateNodeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.sql.Timestamp
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 @AndroidEntryPoint
 class UpdateNodeFragment : Fragment() {
@@ -33,13 +35,14 @@ class UpdateNodeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val currentTime =SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault()).format(Calendar.getInstance().time)
         binding.topAppBar.title = args.node.name
         binding.updateDescriptionTv.setText(args.node.description)
         binding.updateBtn.setOnClickListener {
             val node = Nodes(
                 name = args.node.name,
                 description = binding.updateDescriptionTv.text.toString(),
-                time = Calendar.getInstance().time.toString()
+                time = currentTime
             )
             viewModel.updateNode(node)
             findNavController().navigate(R.id.action_updateNodeFragment_to_mainFragment)
