@@ -13,6 +13,7 @@ import com.example.todolist.databinding.FragmentCreateNodeBinding
 import com.example.todolist.viewmodel.CreateNodeViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Calendar
 
 @AndroidEntryPoint
 class CreateNodeFragment : Fragment() {
@@ -39,10 +40,11 @@ class CreateNodeFragment : Fragment() {
     private fun createNode() {
         val name = binding.nodeNameTv.text.toString()
         val description = binding.descriptionTv.text.toString()
+        val time = Calendar.getInstance().time.toString()
         if (name.isNullOrEmpty()) {
             showAlertDialog()
         } else {
-            viewModel.insertNode(Nodes(name, description))
+            viewModel.insertNode(Nodes(name, description, time))
             findNavController().navigate(R.id.action_createNodeFragment_to_mainFragment)
         }
 

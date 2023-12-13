@@ -7,8 +7,11 @@ import com.example.todolist.databinding.ItemNodeBinding
 class NodesViewHolder(private val binding: ItemNodeBinding) : ViewHolder(binding.root) {
     fun bind(item: Nodes, clickListener: ClickListeners) {
         binding.nodeName.text = item.name
-        binding.cardView.setOnClickListener {
+        binding.nodeText.text = item.description
+        binding.timeCreated.text = item.time
+        itemView.setOnClickListener {
             clickListener.onItemClickListener(item)
         }
+
     }
 }

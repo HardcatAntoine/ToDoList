@@ -10,5 +10,6 @@ import kotlinx.parcelize.Parcelize
 @Entity(tableName = "nodes")
 data class Nodes(
     @PrimaryKey val name: String,
-    @ColumnInfo("description") val description: String
+    @ColumnInfo("description") val description: String,
+    @ColumnInfo("time") val time: String
 ) : Parcelable

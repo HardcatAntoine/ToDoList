@@ -12,6 +12,8 @@ import com.example.todolist.data.local.Nodes
 import com.example.todolist.databinding.FragmentUpdateNodeBinding
 import com.example.todolist.viewmodel.UpdateNodeViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.sql.Timestamp
+import java.util.Calendar
 
 @AndroidEntryPoint
 class UpdateNodeFragment : Fragment() {
@@ -36,7 +38,8 @@ class UpdateNodeFragment : Fragment() {
         binding.updateBtn.setOnClickListener {
             val node = Nodes(
                 name = args.node.name,
-                description = binding.updateDescriptionTv.text.toString()
+                description = binding.updateDescriptionTv.text.toString(),
+                time = Calendar.getInstance().time.toString()
             )
             viewModel.updateNode(node)
             findNavController().navigate(R.id.action_updateNodeFragment_to_mainFragment)
