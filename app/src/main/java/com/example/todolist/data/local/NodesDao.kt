@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 
 @Dao
 interface NodesDao {
@@ -13,6 +14,9 @@ interface NodesDao {
 
     @Delete
     suspend fun removeNode(node: Nodes)
+
+    @Update
+    suspend fun updateNode(node: Nodes)
 
     @Query("SELECT*FROM nodes")
     suspend fun getListNodes(): List<Nodes>

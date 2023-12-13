@@ -8,8 +8,8 @@ import com.example.todolist.databinding.ItemNodeBinding
 
 class NodesAdapter : RecyclerView.Adapter<NodesViewHolder>() {
     private var list: List<Nodes> = listOf()
-    var clickListener: RemoveNodeClickListener? = null
-    fun setRemoveNodeClickListener(clickListener: RemoveNodeClickListener) {
+    var clickListener: ClickListeners? = null
+    fun setRemoveNodeClickListener(clickListener: ClickListeners) {
         this.clickListener = clickListener
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NodesViewHolder {

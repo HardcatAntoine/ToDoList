@@ -4,4 +4,6 @@
     <string name="create_node">Create node</string>
     <string name="name">Name</string>
     <string name="description">Description</string>
+    <string name="your_node">Your node</string>
+    <string name="update">Update node</string>
 </resources>

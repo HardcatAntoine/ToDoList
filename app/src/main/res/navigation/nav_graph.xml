@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_mainFragment_to_createNodeFragment"
             app:destination="@id/createNodeFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_updateNodeFragment"
+            app:destination="@id/updateNodeFragment" />
     </fragment>
     <fragment
         android:id="@+id/createNodeFragment"
@@ -22,5 +25,17 @@
         <action
             android:id="@+id/action_createNodeFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateNodeFragment"
+        android:name="com.example.todolist.view.UpdateNodeFragment"
+        android:label="fragment_update_node"
+        tools:layout="@layout/fragment_update_node" >
+        <action
+            android:id="@+id/action_updateNodeFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <argument
+            android:name="node"
+            app:argType="com.example.todolist.data.local.Nodes" />
     </fragment>
 </navigation>

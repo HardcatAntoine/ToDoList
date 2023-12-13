@@ -19,9 +19,14 @@ class MainFragment : Fragment() {
     lateinit var binding: FragmentMainBinding
     private val adapter = NodesAdapter()
     private val viewModel: NodesViewModel by viewModels()
-    private val clickListener = object : RemoveNodeClickListener{
+    private val clickListener = object : ClickListeners {
         override fun removeNode(node: Nodes) {
             viewModel.removeNode(node)
+        }
+
+        override fun onItemClickListener(node:Nodes) {
+            val action = MainFragmentDirections.actionMainFragmentToUpdateNodeFragment(node)
+            findNavController().navigate(action)
         }
     }
 
