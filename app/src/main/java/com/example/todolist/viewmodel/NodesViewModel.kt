@@ -24,9 +24,10 @@ class NodesViewModel @Inject constructor(
             _listNodes.value = repository.getListNodes()
         }
     }
-    fun removeNode(node: Nodes){
+
+    fun removeNode(node: Nodes) {
         viewModelScope.launch {
-            repository.removeNode(node)
+            _listNodes.value = repository.removeNode(node)
         }
     }
 

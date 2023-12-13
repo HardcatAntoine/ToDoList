@@ -11,7 +11,6 @@ class NodesViewHolder(private val binding: ItemNodeBinding) : ViewHolder(binding
         binding.nodeName.text = item.name
         binding.removeBtn.setOnClickListener {
             clickListener.removeNode(item)
-            itemView.visibility = View.GONE
         }
     }
 }

@@ -12,8 +12,9 @@ class NodesRepository @Inject constructor(private val dao: NodesDao) {
     }
 
     @WorkerThread
-    suspend fun removeNode(node: Nodes) {
+    suspend fun removeNode(node: Nodes): List<Nodes> {
         dao.removeNode(node)
+        return dao.getListNodes()
     }
 
     @WorkerThread
