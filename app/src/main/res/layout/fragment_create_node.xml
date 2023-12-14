@@ -36,6 +36,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="24dp"
         android:backgroundTint="@color/colorButton"
+        android:stateListAnimator="@animator/my_button_animator"
         android:text="@string/create_node"
         android:textColor="@color/colorPrimary"
         app:cornerRadius="5dp"

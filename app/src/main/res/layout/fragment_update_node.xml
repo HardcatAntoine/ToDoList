@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary"
     tools:context=".view.UpdateNodeFragment">
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -26,23 +27,26 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/update_description_container"
+    <EditText
+        android:id="@+id/node_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
-        android:hint="@string/description"
+        android:layout_marginBottom="16dp"
+        android:background="@android:color/transparent"
+        android:cursorVisible="true"
+        android:gravity="start"
+        android:textAlignment="viewStart"
+        android:textColor="@color/white"
+        android:textCursorDrawable="@null"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/update_btn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/update_description_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
     <Button
         android:id="@+id/update_btn"
@@ -53,6 +57,9 @@
         android:layout_marginBottom="24dp"
         android:text="@string/update"
         app:cornerRadius="5dp"
+        android:stateListAnimator="@animator/my_button_animator"
+        android:textColor="@color/colorPrimary"
+        android:backgroundTint="@color/colorButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

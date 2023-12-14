@@ -36,7 +36,7 @@ class UpdateNodeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.topAppBar.title = args.node.name
-        binding.updateDescriptionTv.setText(args.node.description)
+        binding.nodeText.setText(args.node.description)
         binding.updateBtn.setOnClickListener {
            updateNode()
         }
@@ -48,7 +48,7 @@ class UpdateNodeFragment : Fragment() {
         val currentTime =SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault()).format(Calendar.getInstance().time)
         val node = Nodes(
             name = args.node.name,
-            description = binding.updateDescriptionTv.text.toString(),
+            description = binding.nodeText.text.toString(),
             time = currentTime
         )
         viewModel.updateNode(node)

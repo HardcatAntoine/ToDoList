@@ -38,6 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
+        android:stateListAnimator="@animator/my_button_animator"
         android:backgroundTint="@color/colorButton"
         app:srcCompat="@drawable/add_icon"
         android:contentDescription="@string/app_name">
