@@ -6,7 +6,6 @@
     android:layout_marginStart="8dp"
     android:layout_marginTop="4dp"
     android:layout_marginEnd="8dp"
-    android:backgroundTint="@color/colorPrimary"
     app:cardCornerRadius="8dp"
     app:cardElevation="6dp">
 
@@ -21,10 +20,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_margin="4dp"
-            android:textColor="@color/colorButton"
+            android:maxLines="1"
             android:text="TextView"
             android:textSize="20sp"
-            android:maxLines="1"
             android:textStyle="bold" />
 
         <TextView
@@ -36,8 +34,7 @@
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="4dp"
             android:maxLines="3"
-            android:text="TextView"
-            android:textColor="@color/colorBackground" />
+            android:text="TextView" />
 
         <TextView
             android:id="@+id/time_created"
@@ -47,7 +44,6 @@
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="4dp"
             android:text="TextView"
-            android:textColor="@color/colorBackground"
             android:textSize="10sp" />
 
     </LinearLayout>
