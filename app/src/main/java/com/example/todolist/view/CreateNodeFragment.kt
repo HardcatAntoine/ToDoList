@@ -31,8 +31,8 @@ class CreateNodeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.nodeText.onCheckIsTextEditor()
-        binding.nodeText.isCursorVisible = true
+        binding.nodeText.requestFocus()
+        binding.nodeText.requestFocusFromTouch()
         binding.topAppBar.setNavigationOnClickListener {
             showDialogForClickTopBarNav()
         }
