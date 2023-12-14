@@ -35,20 +35,23 @@ class UpdateNodeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val currentTime =SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault()).format(Calendar.getInstance().time)
         binding.topAppBar.title = args.node.name
         binding.updateDescriptionTv.setText(args.node.description)
         binding.updateBtn.setOnClickListener {
-            val node = Nodes(
-                name = args.node.name,
-                description = binding.updateDescriptionTv.text.toString(),
-                time = currentTime
-            )
-            viewModel.updateNode(node)
-            findNavController().navigate(R.id.action_updateNodeFragment_to_mainFragment)
+           updateNode()
         }
         binding.topAppBar.setNavigationOnClickListener {
-            findNavController().navigateUp()
+            updateNode()
         }
+    }
+    fun updateNode(){
+        val currentTime =SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault()).format(Calendar.getInstance().time)
+        val node = Nodes(
+            name = args.node.name,
+            description = binding.updateDescriptionTv.text.toString(),
+            time = currentTime
+        )
+        viewModel.updateNode(node)
+        findNavController().navigate(R.id.action_updateNodeFragment_to_mainFragment)
     }
 }

@@ -31,8 +31,10 @@ class CreateNodeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.nodeText.onCheckIsTextEditor()
+        binding.nodeText.isCursorVisible = true
         binding.topAppBar.setNavigationOnClickListener {
-            findNavController().navigateUp()
+            showDialogForClickTopBarNav()
         }
         binding.createBtn.setOnClickListener {
             createNode()
@@ -40,14 +42,17 @@ class CreateNodeFragment : Fragment() {
     }
 
     private fun createNode() {
-        val name = binding.nodeNameTv.text.toString()
-        val description = binding.descriptionTv.text.toString()
+        val title = binding.titleTv.text.toString()
+        val nodeText = binding.nodeText.text.toString()
         val currentTime =
-            SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault()).format(Calendar.getInstance().time)
-        if (name.isNullOrEmpty()) {
+            SimpleDateFormat(
+                "dd.MM.yyyy HH:mm",
+                Locale.getDefault()
+            ).format(Calendar.getInstance().time)
+        if (title.isNullOrEmpty()) {
             showAlertDialog()
         } else {
-            viewModel.insertNode(Nodes(name, description, currentTime))
+            viewModel.insertNode(Nodes(title, nodeText, currentTime))
             findNavController().navigate(R.id.action_createNodeFragment_to_mainFragment)
         }
 
@@ -61,5 +66,20 @@ class CreateNodeFragment : Fragment() {
                 dialog.cancel()
             }
             .show()
+    }
+
+    private fun showDialogForClickTopBarNav() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Save changes?")
+            .setMessage("Save changes?")
+            .setNeutralButton("No") { dialog, _ ->
+                dialog.cancel()
+                findNavController().navigateUp()
+            }.setPositiveButton("Yes") { dialog, _ ->
+                createNode()
+            }
+            .show()
+
+
     }
 }
