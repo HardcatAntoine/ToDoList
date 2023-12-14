@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.view.menu.MenuBuilder
+import androidx.core.view.get
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.todolist.R
@@ -31,13 +34,21 @@ class CreateNodeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.topAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.done -> {
+                    createNode()
+                    true
+                }
+
+                else -> false
+            }
+
+        }
         binding.nodeText.requestFocus()
         binding.nodeText.requestFocusFromTouch()
         binding.topAppBar.setNavigationOnClickListener {
-            showDialogForClickTopBarNav()
-        }
-        binding.createBtn.setOnClickListener {
-            createNode()
+            findNavController().navigateUp()
         }
     }
 
@@ -49,37 +60,9 @@ class CreateNodeFragment : Fragment() {
                 "dd.MM.yyyy HH:mm",
                 Locale.getDefault()
             ).format(Calendar.getInstance().time)
-        if (title.isNullOrEmpty()) {
-            showAlertDialog()
-        } else {
-            viewModel.insertNode(Nodes(title, nodeText, currentTime))
-            findNavController().navigate(R.id.action_createNodeFragment_to_mainFragment)
-        }
-
+        viewModel.insertNode(Nodes(title, nodeText, currentTime))
+        findNavController().navigate(R.id.action_createNodeFragment_to_mainFragment)
     }
 
-    private fun showAlertDialog() {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Error")
-            .setMessage("Input name for node")
-            .setPositiveButton("OK") { dialog, _ ->
-                dialog.cancel()
-            }
-            .show()
-    }
-
-    private fun showDialogForClickTopBarNav() {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Save changes?")
-            .setMessage("Save changes?")
-            .setNeutralButton("No") { dialog, _ ->
-                dialog.cancel()
-                findNavController().navigateUp()
-            }.setPositiveButton("Yes") { dialog, _ ->
-                createNode()
-            }
-            .show()
-
-
-    }
 }
+
