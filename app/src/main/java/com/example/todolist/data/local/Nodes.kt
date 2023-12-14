@@ -10,7 +10,8 @@ import java.util.Date
 @Parcelize
 @Entity(tableName = "nodes")
 data class Nodes(
-    @PrimaryKey val name: String,
+    @PrimaryKey(autoGenerate = true) var id: Int? = null,
+    @ColumnInfo("name") val name: String,
     @ColumnInfo("description") val description: String,
     @ColumnInfo("time") val time: String
 ) : Parcelable

@@ -60,7 +60,7 @@ class CreateNodeFragment : Fragment() {
                 "dd.MM.yyyy HH:mm",
                 Locale.getDefault()
             ).format(Calendar.getInstance().time)
-        viewModel.insertNode(Nodes(title, nodeText, currentTime))
+        viewModel.insertNode(Nodes(null,title, nodeText, currentTime))
         findNavController().navigate(R.id.action_createNodeFragment_to_mainFragment)
     }
 
