@@ -35,19 +35,41 @@ class UpdateNodeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.topAppBar.title = args.node.name
+        binding.titleText.setText(args.node.name)
         binding.nodeText.setText(args.node.description)
-        binding.updateBtn.setOnClickListener {
-           updateNode()
+        binding.topAppBar.menu.findItem(R.id.done).isVisible = true
+        binding.topAppBar.menu.findItem(R.id.delete).isVisible = true
+        binding.topAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.done -> {
+                    updateNode()
+                    findNavController().navigate(R.id.action_updateNodeFragment_to_mainFragment)
+                    true
+                }
+
+                R.id.delete -> {
+                    viewModel.removeNode(args.node)
+                    findNavController().navigate(R.id.action_updateNodeFragment_to_mainFragment)
+                    true
+                }
+
+                else -> false
+            }
+
         }
         binding.topAppBar.setNavigationOnClickListener {
             updateNode()
         }
     }
-    fun updateNode(){
-        val currentTime =SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault()).format(Calendar.getInstance().time)
+
+    private fun updateNode() {
+        val currentTime = SimpleDateFormat(
+            "dd.MM.yyyy HH:mm",
+            Locale.getDefault()
+        ).format(Calendar.getInstance().time)
         val node = Nodes(
-            name = args.node.name,
+            args.node.id,
+            name = binding.titleText.text.toString(),
             description = binding.nodeText.text.toString(),
             time = currentTime
         )

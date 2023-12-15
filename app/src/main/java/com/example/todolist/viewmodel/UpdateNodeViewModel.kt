@@ -17,4 +17,9 @@ class UpdateNodeViewModel @Inject constructor(
             repository.updateNode(node)
         }
     }
+    fun removeNode(node: Nodes) {
+        viewModelScope.launch {
+            repository.removeNode(node)
+        }
+    }
 }
