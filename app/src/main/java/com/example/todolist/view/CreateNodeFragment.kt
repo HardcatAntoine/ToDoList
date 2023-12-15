@@ -22,7 +22,7 @@ import java.util.Locale
 
 @AndroidEntryPoint
 class CreateNodeFragment : Fragment() {
-    lateinit var binding: FragmentCreateNodeBinding
+    private lateinit var binding: FragmentCreateNodeBinding
     private val viewModel: CreateNodeViewModel by viewModels()
 
     override fun onCreateView(
@@ -37,6 +37,9 @@ class CreateNodeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.nodeText.addTextChangedListener { text ->
+            binding.topAppBar.menu.findItem(R.id.done).isVisible = text.toString().isNotEmpty()
+        }
+        binding.titleTv.addTextChangedListener { text ->
             binding.topAppBar.menu.findItem(R.id.done).isVisible = text.toString().isNotEmpty()
         }
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
