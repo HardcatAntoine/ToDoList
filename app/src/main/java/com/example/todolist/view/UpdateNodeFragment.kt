@@ -43,13 +43,12 @@ class UpdateNodeFragment : Fragment() {
             when (menuItem.itemId) {
                 R.id.done -> {
                     updateNode()
-                    findNavController().navigate(R.id.action_updateNodeFragment_to_mainFragment)
                     true
                 }
 
                 R.id.delete -> {
                     viewModel.removeNode(args.node)
-                    findNavController().navigate(R.id.action_updateNodeFragment_to_mainFragment)
+                    findNavController().navigateUp()
                     true
                 }
 
