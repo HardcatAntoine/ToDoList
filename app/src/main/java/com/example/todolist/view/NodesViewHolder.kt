@@ -26,20 +26,18 @@ class NodesViewHolder(private val binding: ItemNodeBinding) : ViewHolder(binding
         itemView.setOnLongClickListener {
             val popupMenu = PopupMenu(itemView.context, itemView)
             popupMenu.menuInflater.inflate(R.menu.pop_up_menu, popupMenu.menu)
-            popupMenu.setOnMenuItemClickListener { menuItem ->
-                when (menuItem.itemId) {
-                    R.id.delete -> {
-                        clickListener.removeNode(item)
-                        true
-                    }
-
-                    else -> false
-                }
+            popupMenu.setOnMenuItemClickListener {
+                clickListener.removeNode(item)
+                true
             }
             popupMenu.show()
             true
+
         }
 
+
     }
+
 }
+
 
