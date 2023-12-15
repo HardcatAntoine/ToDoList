@@ -37,10 +37,7 @@ class CreateNodeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.nodeText.addTextChangedListener { text ->
-            if (!text.isNullOrEmpty()) {
-                val doneBtn = binding.topAppBar.menu.findItem(R.id.done)
-                doneBtn.isVisible = true
-            }
+            binding.topAppBar.menu.findItem(R.id.done).isVisible = text.toString().isNotEmpty()
         }
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
