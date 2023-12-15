@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +13,7 @@ import com.example.todolist.R
 import com.example.todolist.data.local.Nodes
 import com.example.todolist.databinding.FragmentMainBinding
 import com.example.todolist.viewmodel.NodesViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,7 +26,7 @@ class MainFragment : Fragment() {
             viewModel.removeNode(node)
         }
 
-        override fun onItemClickListener(node:Nodes) {
+        override fun onItemClickListener(node: Nodes) {
             val action = MainFragmentDirections.actionMainFragmentToUpdateNodeFragment(node)
             findNavController().navigate(action)
         }
@@ -60,4 +62,5 @@ class MainFragment : Fragment() {
             adapter.setList(nodes)
         }
     }
+
 }
