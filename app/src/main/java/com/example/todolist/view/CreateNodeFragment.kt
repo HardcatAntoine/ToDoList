@@ -24,6 +24,7 @@ import java.util.Locale
 class CreateNodeFragment : Fragment() {
     lateinit var binding: FragmentCreateNodeBinding
     private val viewModel: CreateNodeViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,10 +35,18 @@ class CreateNodeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.nodeText.addTextChangedListener { text ->
+            if (!text.isNullOrEmpty()) {
+                val doneBtn = binding.topAppBar.menu.findItem(R.id.done)
+                doneBtn.isVisible = true
+            }
+        }
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.done -> {
                     createNode()
+                    findNavController().navigate(R.id.action_createNodeFragment_to_mainFragment)
                     true
                 }
 
@@ -45,6 +54,7 @@ class CreateNodeFragment : Fragment() {
             }
 
         }
+
         binding.nodeText.requestFocus()
         binding.nodeText.requestFocusFromTouch()
         binding.topAppBar.setNavigationOnClickListener {
@@ -60,9 +70,7 @@ class CreateNodeFragment : Fragment() {
                 "dd.MM.yyyy HH:mm",
                 Locale.getDefault()
             ).format(Calendar.getInstance().time)
-        viewModel.insertNode(Nodes(null,title, nodeText, currentTime))
-        findNavController().navigate(R.id.action_createNodeFragment_to_mainFragment)
+        viewModel.insertNode(Nodes(null, title, nodeText, currentTime))
     }
-
 }
 
