@@ -64,9 +64,16 @@ class MainFragment : Fragment(), ItemActionListener {
     private fun showPopUpMenu(node: Nodes, view: View) {
         val popupMenu = PopupMenu(requireContext(), view)
         popupMenu.menuInflater.inflate(R.menu.pop_up_menu, popupMenu.menu)
-        popupMenu.setOnMenuItemClickListener {
-            viewModel.removeNode(node)
-            true
+        popupMenu.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.popup_menu_delete -> {
+                    viewModel.removeNode(node)
+                    true
+                }
+
+                else -> false
+            }
+
         }
         popupMenu.show()
     }
