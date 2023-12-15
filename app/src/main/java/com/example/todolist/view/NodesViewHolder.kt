@@ -1,38 +1,29 @@
 package com.example.todolist.view
 
 import android.view.View
-import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.example.todolist.R
 import com.example.todolist.data.local.Nodes
 import com.example.todolist.databinding.ItemNodeBinding
 
 class NodesViewHolder(private val binding: ItemNodeBinding) : ViewHolder(binding.root) {
-    fun bind(item: Nodes, clickListener: ClickListeners) {
+    fun bind(item: Nodes, clickListener: ItemActionListener) {
         binding.timeCreated.text = item.time
-        if (item.description.isEmpty()) {
+        if (item.noteText.isEmpty()) {
             binding.nodeText.visibility = View.GONE
         } else {
-            binding.nodeText.text = item.description
+            binding.nodeText.text = item.noteText
         }
-        if (item.name.isEmpty()) {
+        if (item.title.isEmpty()) {
             binding.titleText.visibility = View.GONE
         } else {
-            binding.titleText.text = item.name
+            binding.titleText.text = item.title
         }
         itemView.setOnClickListener {
-            clickListener.onItemClickListener(item)
+            clickListener.onItemClick(item)
         }
-        itemView.setOnLongClickListener {
-            val popupMenu = PopupMenu(itemView.context, itemView)
-            popupMenu.menuInflater.inflate(R.menu.pop_up_menu, popupMenu.menu)
-            popupMenu.setOnMenuItemClickListener {
-                clickListener.removeNode(item)
-                true
-            }
-            popupMenu.show()
+        itemView.setOnLongClickListener { view ->
+            clickListener.onItemLongClick(item, view)
             true
-
         }
 
 

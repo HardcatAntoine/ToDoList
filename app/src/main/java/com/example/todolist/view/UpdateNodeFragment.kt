@@ -12,7 +12,6 @@ import com.example.todolist.data.local.Nodes
 import com.example.todolist.databinding.FragmentUpdateNodeBinding
 import com.example.todolist.viewmodel.UpdateNodeViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -35,10 +34,10 @@ class UpdateNodeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.titleText.setText(args.node.name)
-        binding.nodeText.setText(args.node.description)
+        binding.titleText.setText(args.node.title)
+        binding.nodeText.setText(args.node.noteText)
         binding.topAppBar.menu.findItem(R.id.done).isVisible = true
-        binding.topAppBar.menu.findItem(R.id.delete).isVisible = true
+        binding.topAppBar.menu.findItem(R.id.top_app_bar_menu_delete).isVisible = true
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.done -> {
@@ -46,7 +45,7 @@ class UpdateNodeFragment : Fragment() {
                     true
                 }
 
-                R.id.delete -> {
+                R.id.top_app_bar_menu_delete -> {
                     viewModel.removeNode(args.node)
                     findNavController().navigateUp()
                     true
@@ -68,8 +67,8 @@ class UpdateNodeFragment : Fragment() {
         ).format(Calendar.getInstance().time)
         val node = Nodes(
             args.node.id,
-            name = binding.titleText.text.toString(),
-            description = binding.nodeText.text.toString(),
+            title = binding.titleText.text.toString(),
+            noteText = binding.nodeText.text.toString(),
             time = currentTime
         )
         viewModel.updateNode(node)

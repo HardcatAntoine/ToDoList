@@ -13,24 +13,13 @@ import com.example.todolist.R
 import com.example.todolist.data.local.Nodes
 import com.example.todolist.databinding.FragmentMainBinding
 import com.example.todolist.viewmodel.NodesViewModel
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), ItemActionListener {
     lateinit var binding: FragmentMainBinding
     private val adapter = NodesAdapter()
     private val viewModel: NodesViewModel by viewModels()
-    private val clickListener = object : ClickListeners {
-        override fun removeNode(node: Nodes) {
-            viewModel.removeNode(node)
-        }
-
-        override fun onItemClickListener(node: Nodes) {
-            val action = MainFragmentDirections.actionMainFragmentToUpdateNodeFragment(node)
-            findNavController().navigate(action)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,7 +42,7 @@ class MainFragment : Fragment() {
 
     private fun initAdapter() {
         binding.rvNodes.adapter = adapter
-        adapter.setRemoveNodeClickListener(clickListener)
+        adapter.setItemActionListener(this)
         binding.rvNodes.layoutManager = LinearLayoutManager(requireContext())
     }
 
@@ -61,6 +50,25 @@ class MainFragment : Fragment() {
         viewModel.listNodes.observe(viewLifecycleOwner) { nodes ->
             adapter.setList(nodes)
         }
+    }
+
+    override fun onItemLongClick(node: Nodes, view: View) {
+        showPopUpMenu(node, view)
+    }
+
+    override fun onItemClick(node: Nodes) {
+        val action = MainFragmentDirections.actionMainFragmentToUpdateNodeFragment(node)
+        findNavController().navigate(action)
+    }
+
+    private fun showPopUpMenu(node: Nodes, view: View) {
+        val popupMenu = PopupMenu(requireContext(), view)
+        popupMenu.menuInflater.inflate(R.menu.pop_up_menu, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener {
+            viewModel.removeNode(node)
+            true
+        }
+        popupMenu.show()
     }
 
 }
