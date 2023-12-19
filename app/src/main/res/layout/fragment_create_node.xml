@@ -10,7 +10,6 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -22,59 +21,42 @@
             android:minHeight="?attr/actionBarSize"
             app:menu="@menu/top_app_bar"
             app:navigationIcon="@drawable/back_icon"
-            app:title="@string/create_node"
-            app:titleTextColor="@color/white" />
+            app:title="@string/create_note" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/node_name_container"
+    <EditText
+        android:id="@+id/title_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
-        android:hint="@string/name"
+        android:background="@android:color/transparent"
+        android:cursorVisible="true"
+        android:hint="@string/title"
+        android:textAlignment="textStart"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/node_name_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/description_container"
+    <EditText
+        android:id="@+id/node_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
-        android:hint="@string/description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/node_name_container">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/description_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <Button
-        android:id="@+id/create_btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="24dp"
-        android:text="@string/create_node"
-        app:cornerRadius="5dp"
+        android:layout_marginBottom="16dp"
+        android:background="@android:color/transparent"
+        android:cursorVisible="true"
+        android:gravity="start"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_tv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

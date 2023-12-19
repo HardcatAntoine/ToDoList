@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">ToDoList</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="create_node">Create node</string>
-    <string name="name">Name</string>
-    <string name="description">Description</string>
-    <string name="your_node">Your node</string>
-    <string name="update">Update node</string>
+    <string name="create_note">Add note</string>
+    <string name="title">Title</string>
+    <string name="note_text">Note text</string>
+    <string name="your_note">Your note</string>
+    <string name="update">Update note</string>
+    <string name="done">done</string>
+    <string name="delete">Delete</string>
+    <string name="delete_note">Delete note</string>
 </resources>

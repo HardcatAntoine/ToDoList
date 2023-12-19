@@ -5,19 +5,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.todolist.R
 import com.example.todolist.data.local.Nodes
 import com.example.todolist.databinding.FragmentCreateNodeBinding
 import com.example.todolist.viewmodel.CreateNodeViewModel
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 @AndroidEntryPoint
 class CreateNodeFragment : Fragment() {
-    lateinit var binding: FragmentCreateNodeBinding
+    private lateinit var binding: FragmentCreateNodeBinding
     private val viewModel: CreateNodeViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,33 +32,34 @@ class CreateNodeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val doneBtn = binding.topAppBar.menu.findItem(R.id.done)
+        binding.nodeText.addTextChangedListener { text ->
+            doneBtn.isVisible =
+                binding.titleTv.text.toString().isNotEmpty() || text.toString().isNotEmpty()
+        }
+        binding.titleTv.addTextChangedListener { text ->
+            doneBtn.isVisible =
+                binding.nodeText.text.toString().isNotEmpty() || text.toString().isNotEmpty()
+
+        }
+        binding.topAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.done -> {
+                    val title = binding.titleTv.text.toString()
+                    val nodeText = binding.nodeText.text.toString()
+                    viewModel.insertNode(title, nodeText)
+                    findNavController().navigate(R.id.action_createNodeFragment_to_mainFragment)
+                    true
+                }
+
+                else -> false
+            }
+        }
+        binding.nodeText.requestFocus()
+        binding.nodeText.requestFocusFromTouch()
         binding.topAppBar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
-        binding.createBtn.setOnClickListener {
-            createNode()
-        }
-    }
-
-    private fun createNode() {
-        val name = binding.nodeNameTv.text.toString()
-        val description = binding.descriptionTv.text.toString()
-        if (name.isNullOrEmpty()) {
-            showAlertDialog()
-        } else {
-            viewModel.insertNode(Nodes(name, description))
-            findNavController().navigate(R.id.action_createNodeFragment_to_mainFragment)
-        }
-
-    }
-
-    private fun showAlertDialog() {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Error")
-            .setMessage("Input name for node")
-            .setPositiveButton("OK") { dialog, _ ->
-                dialog.cancel()
-            }
-            .show()
     }
 }
+
