@@ -32,12 +32,21 @@ class CreateNodeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val doneBtn = binding.topAppBar.menu.findItem(R.id.done)
         binding.nodeText.addTextChangedListener { text ->
-            binding.topAppBar.menu.findItem(R.id.done).isVisible = text.toString().isNotEmpty()
+            if (text.toString().isNotEmpty()) {
+                doneBtn.isVisible = true
+            } else {
+                doneBtn.isVisible = binding.titleTv.text.toString().isNotEmpty()
+            }
+
         }
         binding.titleTv.addTextChangedListener { text ->
-            binding.topAppBar.menu.findItem(R.id.done).isVisible = text.toString().isNotEmpty()
+            if (text.toString().isNotEmpty()) {
+                doneBtn.isVisible = true
+            } else {
+                doneBtn.isVisible = binding.nodeText.text.toString().isNotEmpty()
+            }
         }
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
