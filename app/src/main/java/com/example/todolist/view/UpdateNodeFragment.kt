@@ -38,16 +38,20 @@ class UpdateNodeFragment : Fragment() {
         binding.nodeText.setText(args.node.noteText)
         binding.topAppBar.menu.findItem(R.id.done).isVisible = true
         binding.topAppBar.menu.findItem(R.id.top_app_bar_menu_delete).isVisible = true
+
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.done -> {
-                    updateNode()
+                    val title = binding.titleText.text.toString()
+                    val noteText = binding.nodeText.text.toString()
+                    viewModel.updateNode(args.node.id, title, noteText)
+                    findNavController().navigate(R.id.action_updateNodeFragment_to_mainFragment)
                     true
                 }
 
                 R.id.top_app_bar_menu_delete -> {
                     viewModel.removeNode(args.node)
-                    findNavController().navigateUp()
+                    findNavController().navigate(R.id.action_updateNodeFragment_to_mainFragment)
                     true
                 }
 
@@ -56,22 +60,9 @@ class UpdateNodeFragment : Fragment() {
 
         }
         binding.topAppBar.setNavigationOnClickListener {
-            updateNode()
+            findNavController().navigateUp()
         }
     }
 
-    private fun updateNode() {
-        val currentTime = SimpleDateFormat(
-            "dd.MM.yyyy HH:mm",
-            Locale.getDefault()
-        ).format(Calendar.getInstance().time)
-        val node = Nodes(
-            args.node.id,
-            title = binding.titleText.text.toString(),
-            noteText = binding.nodeText.text.toString(),
-            time = currentTime
-        )
-        viewModel.updateNode(node)
-        findNavController().navigate(R.id.action_updateNodeFragment_to_mainFragment)
-    }
+
 }

@@ -42,7 +42,9 @@ class CreateNodeFragment : Fragment() {
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.done -> {
-                    createNode()
+                    val title = binding.titleTv.text.toString()
+                    val nodeText = binding.nodeText.text.toString()
+                    viewModel.insertNode(title, nodeText)
                     findNavController().navigate(R.id.action_createNodeFragment_to_mainFragment)
                     true
                 }
@@ -57,17 +59,6 @@ class CreateNodeFragment : Fragment() {
         binding.topAppBar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
-    }
-
-    private fun createNode() {
-        val title = binding.titleTv.text.toString()
-        val nodeText = binding.nodeText.text.toString()
-        val currentTime =
-            SimpleDateFormat(
-                "dd.MM.yyyy HH:mm",
-                Locale.getDefault()
-            ).format(Calendar.getInstance().time)
-        viewModel.insertNode(Nodes(null, title, nodeText, currentTime))
     }
 }
 
