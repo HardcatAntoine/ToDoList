@@ -50,8 +50,13 @@ class UpdateNodeFragment : Fragment() {
                 R.id.done -> {
                     val title = binding.titleText.text.toString()
                     val noteText = binding.nodeText.text.toString()
-                    viewModel.updateNode(args.node.id, title, noteText)
-                    findNavController().navigate(R.id.action_updateNodeFragment_to_mainFragment)
+                    if (title.isNullOrEmpty() && noteText.isNullOrEmpty()) {
+                        viewModel.removeNode(args.node)
+                        findNavController().navigate(R.id.action_updateNodeFragment_to_mainFragment)
+                    } else {
+                        viewModel.updateNode(args.node.id, title, noteText)
+                        findNavController().navigate(R.id.action_updateNodeFragment_to_mainFragment)
+                    }
                     true
                 }
 
