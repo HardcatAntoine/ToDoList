@@ -39,7 +39,6 @@ class CreateNodeFragment : Fragment() {
             } else {
                 doneBtn.isVisible = binding.titleTv.text.toString().isNotEmpty()
             }
-
         }
         binding.titleTv.addTextChangedListener { text ->
             if (text.toString().isNotEmpty()) {
@@ -60,9 +59,7 @@ class CreateNodeFragment : Fragment() {
 
                 else -> false
             }
-
         }
-
         binding.nodeText.requestFocus()
         binding.nodeText.requestFocusFromTouch()
         binding.topAppBar.setNavigationOnClickListener {
