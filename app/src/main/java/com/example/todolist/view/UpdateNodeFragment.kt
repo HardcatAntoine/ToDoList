@@ -36,14 +36,41 @@ class UpdateNodeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val doneBtn = binding.topAppBar.menu.findItem(R.id.done)
+        val menuBtn = binding.topAppBar.menu.findItem(R.id.top_app_bar_menu_delete)
+        val shareBtn = binding.topAppBar.menu.findItem(R.id.share)
+        val undoBtn = binding.topAppBar.menu.findItem(R.id.undo)
+        val redoBtn = binding.topAppBar.menu.findItem(R.id.redo)
         binding.titleText.setText(args.node.title)
         binding.nodeText.setText(args.node.noteText)
-        binding.topAppBar.menu.findItem(R.id.top_app_bar_menu_delete).isVisible = true
+        shareBtn.isVisible = true
+        menuBtn.isVisible = true
         binding.nodeText.addTextChangedListener { text ->
             doneBtn.isVisible = text.toString() != args.node.noteText
+            if (doneBtn.isVisible) {
+                undoBtn.isVisible = true
+                redoBtn.isVisible = true
+                shareBtn.isVisible = false
+                menuBtn.isVisible = false
+            } else {
+                shareBtn.isVisible = true
+                menuBtn.isVisible = true
+                undoBtn.isVisible = false
+                redoBtn.isVisible = false
+            }
         }
         binding.titleText.addTextChangedListener { text ->
             doneBtn.isVisible = text.toString() != args.node.title
+            if (doneBtn.isVisible) {
+                undoBtn.isVisible = true
+                redoBtn.isVisible = true
+                shareBtn.isVisible = false
+                menuBtn.isVisible = false
+            } else {
+                shareBtn.isVisible = true
+                menuBtn.isVisible = true
+                undoBtn.isVisible = false
+                redoBtn.isVisible = false
+            }
         }
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {

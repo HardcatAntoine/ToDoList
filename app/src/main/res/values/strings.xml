@@ -9,4 +9,7 @@
     <string name="done">done</string>
     <string name="delete">Delete</string>
     <string name="delete_note">Delete note</string>
+    <string name="share">share</string>
+    <string name="undo">undo</string>
+    <string name="redo">redo</string>
 </resources>
