@@ -11,31 +11,31 @@
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
-            android:id="@+id/action_mainFragment_to_createNodeFragment"
+            android:id="@+id/action_mainFragment_to_createNoteFragment"
             app:destination="@id/createNodeFragment" />
         <action
-            android:id="@+id/action_mainFragment_to_updateNodeFragment"
+            android:id="@+id/action_mainFragment_to_updateNoteFragment"
             app:destination="@id/updateNodeFragment" />
     </fragment>
     <fragment
         android:id="@+id/createNodeFragment"
-        android:name="com.example.todolist.view.CreateNodeFragment"
+        android:name="com.example.todolist.view.CreateNoteFragment"
         android:label="fragment_create_node"
-        tools:layout="@layout/fragment_create_node" >
+        tools:layout="@layout/fragment_create_note" >
         <action
-            android:id="@+id/action_createNodeFragment_to_mainFragment"
+            android:id="@+id/action_createNoteFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/updateNodeFragment"
-        android:name="com.example.todolist.view.UpdateNodeFragment"
+        android:name="com.example.todolist.view.UpdateNoteFragment"
         android:label="fragment_update_node"
-        tools:layout="@layout/fragment_update_node" >
+        tools:layout="@layout/fragment_update_note" >
         <action
-            android:id="@+id/action_updateNodeFragment_to_mainFragment"
+            android:id="@+id/action_updateNoteFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
         <argument
-            android:name="node"
-            app:argType="com.example.todolist.data.local.Nodes" />
+            android:name="note"
+            app:argType="com.example.todolist.data.local.Note" />
     </fragment>
 </navigation>

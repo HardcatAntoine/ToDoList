@@ -8,16 +8,16 @@ import androidx.room.Query
 import androidx.room.Update
 
 @Dao
-interface NodesDao {
+interface NotesDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertNode(node: Nodes)
+    suspend fun insertNote(note: Note)
 
     @Delete
-    suspend fun removeNode(node: Nodes)
+    suspend fun removeNote(note: Note)
 
     @Update
-    suspend fun updateNode(node: Nodes)
+    suspend fun updateNote(note: Note)
 
-    @Query("SELECT*FROM nodes")
-    suspend fun getListNodes(): List<Nodes>
+    @Query("SELECT*FROM notes")
+    suspend fun getListNotes(): List<Note>
 }

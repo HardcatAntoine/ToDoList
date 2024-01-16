@@ -2,11 +2,11 @@ package com.example.todolist.view
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.example.todolist.data.local.Nodes
-import com.example.todolist.databinding.ItemNodeBinding
+import com.example.todolist.data.local.Note
+import com.example.todolist.databinding.ItemNoteBinding
 
-class NodesViewHolder(private val binding: ItemNodeBinding) : ViewHolder(binding.root) {
-    fun bind(item: Nodes, clickListener: ItemActionListener) {
+class NotesViewHolder(private val binding: ItemNoteBinding) : ViewHolder(binding.root) {
+    fun bind(item: Note, clickListener: ItemActionListener) {
         binding.timeCreated.text = item.time
         if (item.noteText.isEmpty()) {
             binding.nodeText.visibility = View.GONE

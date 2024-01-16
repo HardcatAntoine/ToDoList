@@ -2,9 +2,9 @@ package com.example.todolist.di
 
 import android.app.Application
 import androidx.room.Room
-import com.example.todolist.data.local.NodesDao
-import com.example.todolist.data.local.NodesDatabase
-import com.example.todolist.data.repository.NodesRepository
+import com.example.todolist.data.local.NotesDao
+import com.example.todolist.data.local.NotesDatabase
+import com.example.todolist.data.repository.NotesRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,22 +16,22 @@ import javax.inject.Singleton
 object DatabaseModule {
     @Provides
     @Singleton
-    fun providesDatabase(application: Application): NodesDatabase {
+    fun providesDatabase(application: Application): NotesDatabase {
         return Room.databaseBuilder(
             application,
-            NodesDatabase::class.java,
+            NotesDatabase::class.java,
             "nodes"
         ).build()
     }
 
     @Provides
-    fun providesNodesDao(database: NodesDatabase): NodesDao {
+    fun providesNotesDao(database: NotesDatabase): NotesDao {
         return database.nodesDao()
     }
 
     @Provides
-    fun provideNodesRepository(dao: NodesDao): NodesRepository {
-        return NodesRepository(dao)
+    fun provideNotesRepository(dao: NotesDao): NotesRepository {
+        return NotesRepository(dao)
     }
 
 }

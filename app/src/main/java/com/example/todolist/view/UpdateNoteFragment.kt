@@ -1,35 +1,31 @@
 package com.example.todolist.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.todolist.R
-import com.example.todolist.data.local.Nodes
-import com.example.todolist.databinding.FragmentUpdateNodeBinding
-import com.example.todolist.viewmodel.UpdateNodeViewModel
+import com.example.todolist.databinding.FragmentUpdateNoteBinding
+import com.example.todolist.viewmodel.UpdateNoteViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
 
 @AndroidEntryPoint
-class UpdateNodeFragment : Fragment() {
-    lateinit var binding: FragmentUpdateNodeBinding
-    private val viewModel: UpdateNodeViewModel by viewModels()
-    private val args: UpdateNodeFragmentArgs by lazy {
-        UpdateNodeFragmentArgs.fromBundle(requireArguments())
+class UpdateNoteFragment : Fragment() {
+    private lateinit var binding: FragmentUpdateNoteBinding
+    private val viewModel: UpdateNoteViewModel by viewModels()
+    private val args: UpdateNoteFragmentArgs by lazy {
+        UpdateNoteFragmentArgs.fromBundle(requireArguments())
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentUpdateNodeBinding.inflate(layoutInflater)
+        binding = FragmentUpdateNoteBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -40,12 +36,12 @@ class UpdateNodeFragment : Fragment() {
         val shareBtn = binding.topAppBar.menu.findItem(R.id.share)
         val undoBtn = binding.topAppBar.menu.findItem(R.id.undo)
         val redoBtn = binding.topAppBar.menu.findItem(R.id.redo)
-        binding.titleText.setText(args.node.title)
-        binding.nodeText.setText(args.node.noteText)
+        binding.titleText.setText(args.note.title)
+        binding.nodeText.setText(args.note.noteText)
         shareBtn.isVisible = true
         menuBtn.isVisible = true
         binding.nodeText.addTextChangedListener { text ->
-            doneBtn.isVisible = text.toString() != args.node.noteText
+            doneBtn.isVisible = text.toString() != args.note.noteText
             if (doneBtn.isVisible) {
                 undoBtn.isVisible = true
                 redoBtn.isVisible = true
@@ -59,7 +55,7 @@ class UpdateNodeFragment : Fragment() {
             }
         }
         binding.titleText.addTextChangedListener { text ->
-            doneBtn.isVisible = text.toString() != args.node.title
+            doneBtn.isVisible = text.toString() != args.note.title
             if (doneBtn.isVisible) {
                 undoBtn.isVisible = true
                 redoBtn.isVisible = true
@@ -78,18 +74,18 @@ class UpdateNodeFragment : Fragment() {
                     val title = binding.titleText.text.toString()
                     val noteText = binding.nodeText.text.toString()
                     if (title.isEmpty() && noteText.isEmpty()) {
-                        viewModel.removeNode(args.node)
-                        findNavController().navigate(R.id.action_updateNodeFragment_to_mainFragment)
+                        viewModel.removeNode(args.note)
+                        findNavController().navigate(R.id.action_updateNoteFragment_to_mainFragment)
                     } else {
-                        viewModel.updateNode(args.node.id, title, noteText)
-                        findNavController().navigate(R.id.action_updateNodeFragment_to_mainFragment)
+                        viewModel.updateNode(args.note.id, title, noteText)
+                        findNavController().navigate(R.id.action_updateNoteFragment_to_mainFragment)
                     }
                     true
                 }
 
                 R.id.top_app_bar_menu_delete -> {
-                    viewModel.removeNode(args.node)
-                    findNavController().navigate(R.id.action_updateNodeFragment_to_mainFragment)
+                    viewModel.removeNode(args.note)
+                    findNavController().navigate(R.id.action_updateNoteFragment_to_mainFragment)
                     true
                 }
 

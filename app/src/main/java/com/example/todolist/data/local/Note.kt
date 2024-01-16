@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Entity(tableName = "nodes")
-data class Nodes(
+@Entity(tableName = "notes")
+data class Note(
     @PrimaryKey(autoGenerate = true) var id: Int? = null,
     @ColumnInfo("title") val title: String,
     @ColumnInfo("note_text") val noteText: String,
