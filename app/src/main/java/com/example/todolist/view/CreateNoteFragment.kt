@@ -29,6 +29,7 @@ class CreateNoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val doneBtn = binding.topAppBar.menu.findItem(R.id.done)
+        binding.topAppBar.menu.findItem(R.id.top_app_bar_menu_delete).isVisible = false
         binding.topAppBar.menu.findItem(R.id.share).isVisible = false
         binding.noteText.addTextChangedListener { text ->
             doneBtn.isVisible =
