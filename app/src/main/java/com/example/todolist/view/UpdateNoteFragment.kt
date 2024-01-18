@@ -21,6 +21,10 @@ class UpdateNoteFragment : Fragment() {
         UpdateNoteFragmentArgs.fromBundle(requireArguments())
     }
 
+    private var doneBtnIsVisibleState = false
+    private var isUndoBtnEnabled = false
+    private var isRedoBtnEnabled = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,60 +35,51 @@ class UpdateNoteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val doneBtn = binding.topAppBar.menu.findItem(R.id.done)
-        val menuBtn = binding.topAppBar.menu.findItem(R.id.top_app_bar_menu_delete)
-        val shareBtn = binding.topAppBar.menu.findItem(R.id.share)
         val undoBtn = binding.topAppBar.menu.findItem(R.id.undo)
         val redoBtn = binding.topAppBar.menu.findItem(R.id.redo)
+        val changeTextBuffer = mutableListOf(args.note)
+        var currentTextBufferIndex = 1
         binding.titleText.setText(args.note.title)
-        binding.nodeText.setText(args.note.noteText)
-        shareBtn.isVisible = true
-        menuBtn.isVisible = true
-        binding.nodeText.addTextChangedListener { text ->
-            doneBtn.isVisible = text.toString() != args.note.noteText
-            if (doneBtn.isVisible) {
-                undoBtn.isVisible = true
-                redoBtn.isVisible = true
-                shareBtn.isVisible = false
-                menuBtn.isVisible = false
-            } else {
-                shareBtn.isVisible = true
-                menuBtn.isVisible = true
-                undoBtn.isVisible = false
-                redoBtn.isVisible = false
+        binding.noteText.setText(args.note.note)
+        val noteTextChangeListener = binding.noteText.addTextChangedListener { text ->
+            doneBtnIsVisibleState = text.toString() != args.note.note
+            btnVisibility(doneBtnIsVisibleState)
+            if (doneBtnIsVisibleState) {
+                isUndoBtnEnabled = true
+                undoBtn.isEnabled = isUndoBtnEnabled
             }
+            val lastChange = changeTextBuffer.last()
+            val newChange = lastChange.copy(note = text.toString())
+            changeTextBuffer.add(newChange)
         }
-        binding.titleText.addTextChangedListener { text ->
-            doneBtn.isVisible = text.toString() != args.note.title
-            if (doneBtn.isVisible) {
-                undoBtn.isVisible = true
-                redoBtn.isVisible = true
-                shareBtn.isVisible = false
-                menuBtn.isVisible = false
-            } else {
-                shareBtn.isVisible = true
-                menuBtn.isVisible = true
-                undoBtn.isVisible = false
-                redoBtn.isVisible = false
+        val titleTextChangeListener = binding.titleText.addTextChangedListener { text ->
+            doneBtnIsVisibleState = text.toString() != args.note.title
+            btnVisibility(doneBtnIsVisibleState)
+            if (doneBtnIsVisibleState) {
+                isUndoBtnEnabled = true
+                undoBtn.isEnabled = isUndoBtnEnabled
             }
+            val lastChange = changeTextBuffer.last()
+            val newChange = lastChange.copy(title = text.toString())
+            changeTextBuffer.add(newChange)
         }
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.done -> {
                     val title = binding.titleText.text.toString()
-                    val noteText = binding.nodeText.text.toString()
+                    val noteText = binding.noteText.text.toString()
                     if (title.isEmpty() && noteText.isEmpty()) {
-                        viewModel.removeNode(args.note)
+                        viewModel.removeNote(args.note)
                         findNavController().navigate(R.id.action_updateNoteFragment_to_mainFragment)
                     } else {
-                        viewModel.updateNode(args.note.id, title, noteText)
+                        viewModel.updateNote(args.note.id, title, noteText)
                         findNavController().navigate(R.id.action_updateNoteFragment_to_mainFragment)
                     }
                     true
                 }
 
                 R.id.top_app_bar_menu_delete -> {
-                    viewModel.removeNode(args.note)
+                    viewModel.removeNote(args.note)
                     findNavController().navigate(R.id.action_updateNoteFragment_to_mainFragment)
                     true
                 }
@@ -96,7 +91,69 @@ class UpdateNoteFragment : Fragment() {
         binding.topAppBar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+        undoBtn.setOnMenuItemClickListener {
+            binding.titleText.removeTextChangedListener(titleTextChangeListener)
+            binding.noteText.removeTextChangedListener(noteTextChangeListener)
+            isRedoBtnEnabled = true
+            redoBtn.isEnabled = isRedoBtnEnabled
+            if (currentTextBufferIndex < changeTextBuffer.size) {
+                currentTextBufferIndex += 1
+                val currentNote = changeTextBuffer[changeTextBuffer.size - currentTextBufferIndex]
+                binding.titleText.setText(currentNote.title)
+                binding.noteText.setText(currentNote.note)
+            } else {
+                if (currentTextBufferIndex == changeTextBuffer.size) {
+                    isUndoBtnEnabled = false
+                    undoBtn.isEnabled = isUndoBtnEnabled
+                }
+            }
+            binding.titleText.addTextChangedListener(titleTextChangeListener)
+            binding.noteText.addTextChangedListener(noteTextChangeListener)
+            true
+        }
+        redoBtn.setOnMenuItemClickListener {
+            binding.titleText.removeTextChangedListener(titleTextChangeListener)
+            binding.noteText.removeTextChangedListener(noteTextChangeListener)
+            isUndoBtnEnabled = true
+            undoBtn.isEnabled = isUndoBtnEnabled
+            if (currentTextBufferIndex > 1) {
+                currentTextBufferIndex -= 1
+                val currentNote = changeTextBuffer[changeTextBuffer.size - currentTextBufferIndex]
+                binding.titleText.setText(currentNote.title)
+                binding.noteText.setText(currentNote.note)
+            } else {
+                if (currentTextBufferIndex == 1) {
+                    isRedoBtnEnabled = false
+                    redoBtn.isEnabled = isRedoBtnEnabled
+                    isUndoBtnEnabled = true
+                    undoBtn.isEnabled = isUndoBtnEnabled
+                }
+            }
+            binding.titleText.addTextChangedListener(titleTextChangeListener)
+            binding.noteText.addTextChangedListener(noteTextChangeListener)
+            true
+        }
     }
 
+    private fun btnVisibility(doneBtnIsVisible: Boolean) {
+        val doneBtn = binding.topAppBar.menu.findItem(R.id.done)
+        val menuBtn = binding.topAppBar.menu.findItem(R.id.top_app_bar_menu_delete)
+        val shareBtn = binding.topAppBar.menu.findItem(R.id.share)
+        val undoBtn = binding.topAppBar.menu.findItem(R.id.undo)
+        val redoBtn = binding.topAppBar.menu.findItem(R.id.redo)
+        if (doneBtnIsVisible) {
+            doneBtn.isVisible = true
+            undoBtn.isVisible = true
+            redoBtn.isVisible = true
+            shareBtn.isVisible = false
+            menuBtn.isVisible = false
+        } else {
+            shareBtn.isVisible = true
+            menuBtn.isVisible = true
+            undoBtn.isVisible = false
+            redoBtn.isVisible = false
+            doneBtn.isVisible = false
+        }
+    }
 
 }
