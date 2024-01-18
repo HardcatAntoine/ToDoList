@@ -24,9 +24,9 @@ class NotesViewModel @Inject constructor(
         }
     }
 
-    fun removeNode(node: Note) {
+    fun removeNote(note: Note) {
         viewModelScope.launch {
-            _listNote.value = repository.removeNote(node)
+            _listNote.value = repository.removeNote(note)
         }
     }
 

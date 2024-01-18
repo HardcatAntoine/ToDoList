@@ -41,9 +41,9 @@ class MainFragment : Fragment(), ItemActionListener {
     }
 
     private fun initAdapter() {
-        binding.rvNodes.adapter = adapter
+        binding.rvNotes.adapter = adapter
         adapter.setItemActionListener(this)
-        binding.rvNodes.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvNotes.layoutManager = LinearLayoutManager(requireContext())
     }
 
     private fun observers() {
@@ -52,22 +52,22 @@ class MainFragment : Fragment(), ItemActionListener {
         }
     }
 
-    override fun onItemLongClick(node: Note, view: View) {
-        showPopUpMenu(node, view)
+    override fun onItemLongClick(note: Note, view: View) {
+        showPopUpMenu(note, view)
     }
 
-    override fun onItemClick(node: Note) {
-        val action = MainFragmentDirections.actionMainFragmentToUpdateNoteFragment(node)
+    override fun onItemClick(note: Note) {
+        val action = MainFragmentDirections.actionMainFragmentToUpdateNoteFragment(note)
         findNavController().navigate(action)
     }
 
-    private fun showPopUpMenu(node: Note, view: View) {
+    private fun showPopUpMenu(note: Note, view: View) {
         val popupMenu = PopupMenu(requireContext(), view)
         popupMenu.menuInflater.inflate(R.menu.pop_up_menu, popupMenu.menu)
         popupMenu.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.popup_menu_delete -> {
-                    viewModel.removeNode(node)
+                    viewModel.removeNote(note)
                     true
                 }
 

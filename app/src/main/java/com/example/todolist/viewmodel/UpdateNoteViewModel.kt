@@ -15,24 +15,24 @@ import javax.inject.Inject
 class UpdateNoteViewModel @Inject constructor(
     private val repository: NotesRepository
 ) : ViewModel() {
-    fun updateNode(id: Int?, title: String, noteText: String) {
+    fun updateNote(id: Int?, title: String, noteText: String) {
         viewModelScope.launch {
             val currentTime = SimpleDateFormat(
                 "dd.MM.yyyy HH:mm",
                 Locale.getDefault()
             ).format(Calendar.getInstance().time)
-            val node = Note(
+            val note = Note(
                 id,
                 title = title,
-                noteText = noteText,
+                note = noteText,
                 time = currentTime
             )
-            repository.updateNote(node)
+            repository.updateNote(note)
         }
     }
-    fun removeNode(node: Note) {
+    fun removeNote(note: Note) {
         viewModelScope.launch {
-            repository.removeNote(node)
+            repository.removeNote(note)
         }
     }
 }

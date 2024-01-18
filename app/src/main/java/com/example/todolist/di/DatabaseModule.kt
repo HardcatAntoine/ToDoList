@@ -20,13 +20,13 @@ object DatabaseModule {
         return Room.databaseBuilder(
             application,
             NotesDatabase::class.java,
-            "nodes"
+            "notes"
         ).build()
     }
 
     @Provides
     fun providesNotesDao(database: NotesDatabase): NotesDao {
-        return database.nodesDao()
+        return database.notesDao()
     }
 
     @Provides

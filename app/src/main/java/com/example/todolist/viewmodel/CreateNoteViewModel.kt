@@ -15,19 +15,19 @@ import javax.inject.Inject
 class CreateNoteViewModel @Inject constructor(
     private val repository: NotesRepository
 ) : ViewModel() {
-     fun insertNode(title: String, nodeText: String) {
+     fun insertNote(titleText: String, noteText: String) {
         viewModelScope.launch {
             val currentTime = SimpleDateFormat(
                 "dd.MM.yyyy HH:mm",
                 Locale.getDefault()
             ).format(Calendar.getInstance().time)
-            val node = Note(
+            val note = Note(
                 null,
-                title = title,
-                noteText = nodeText,
+                title = titleText,
+                note = noteText,
                 time = currentTime
             )
-            repository.insertNote(node)
+            repository.insertNote(note)
         }
     }
 }

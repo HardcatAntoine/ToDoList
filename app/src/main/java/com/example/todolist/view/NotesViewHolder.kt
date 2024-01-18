@@ -8,10 +8,10 @@ import com.example.todolist.databinding.ItemNoteBinding
 class NotesViewHolder(private val binding: ItemNoteBinding) : ViewHolder(binding.root) {
     fun bind(item: Note, clickListener: ItemActionListener) {
         binding.timeCreated.text = item.time
-        if (item.noteText.isEmpty()) {
-            binding.nodeText.visibility = View.GONE
+        if (item.note.isEmpty()) {
+            binding.noteText.visibility = View.GONE
         } else {
-            binding.nodeText.text = item.noteText
+            binding.noteText.text = item.note
         }
         if (item.title.isEmpty()) {
             binding.titleText.visibility = View.GONE

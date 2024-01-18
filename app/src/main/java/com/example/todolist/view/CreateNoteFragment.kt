@@ -29,21 +29,22 @@ class CreateNoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val doneBtn = binding.topAppBar.menu.findItem(R.id.done)
-        binding.nodeText.addTextChangedListener { text ->
+        binding.topAppBar.menu.findItem(R.id.share).isVisible = false
+        binding.noteText.addTextChangedListener { text ->
             doneBtn.isVisible =
                 binding.titleTv.text.toString().isNotEmpty() || text.toString().isNotEmpty()
         }
         binding.titleTv.addTextChangedListener { text ->
             doneBtn.isVisible =
-                binding.nodeText.text.toString().isNotEmpty() || text.toString().isNotEmpty()
+                binding.noteText.text.toString().isNotEmpty() || text.toString().isNotEmpty()
 
         }
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
-                 R.id.done -> {
+                R.id.done -> {
                     val title = binding.titleTv.text.toString()
-                    val nodeText = binding.nodeText.text.toString()
-                    viewModel.insertNode(title, nodeText)
+                    val noteText = binding.noteText.text.toString()
+                    viewModel.insertNote(title, noteText)
                     findNavController().navigate(R.id.action_createNoteFragment_to_mainFragment)
                     true
                 }
@@ -51,8 +52,8 @@ class CreateNoteFragment : Fragment() {
                 else -> false
             }
         }
-        binding.nodeText.requestFocus()
-        binding.nodeText.requestFocusFromTouch()
+        binding.noteText.requestFocus()
+        binding.noteText.requestFocusFromTouch()
         binding.topAppBar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }

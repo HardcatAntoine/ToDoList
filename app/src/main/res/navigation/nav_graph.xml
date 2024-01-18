@@ -12,24 +12,24 @@
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_createNoteFragment"
-            app:destination="@id/createNodeFragment" />
+            app:destination="@id/createNoteFragment" />
         <action
             android:id="@+id/action_mainFragment_to_updateNoteFragment"
-            app:destination="@id/updateNodeFragment" />
+            app:destination="@id/updateNoteFragment" />
     </fragment>
     <fragment
-        android:id="@+id/createNodeFragment"
+        android:id="@+id/createNoteFragment"
         android:name="com.example.todolist.view.CreateNoteFragment"
-        android:label="fragment_create_node"
+        android:label="fragment_create_note"
         tools:layout="@layout/fragment_create_note" >
         <action
             android:id="@+id/action_createNoteFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
     </fragment>
     <fragment
-        android:id="@+id/updateNodeFragment"
+        android:id="@+id/updateNoteFragment"
         android:name="com.example.todolist.view.UpdateNoteFragment"
-        android:label="fragment_update_node"
+        android:label="fragment_update_note"
         tools:layout="@layout/fragment_update_note" >
         <action
             android:id="@+id/action_updateNoteFragment_to_mainFragment"
