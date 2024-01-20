@@ -55,22 +55,11 @@ class UpdateNoteFragment : Fragment() {
         val noteTextChangeListener = noteText.addTextChangedListener { text ->
             viewModel.updateDoneBtnVisibility(text.toString() != args.note.note)
             viewModel.enableUndoBtn()
-//            viewModel.updateUndoBtnEnabled(text.toString() != args.note.note)
-//            btnVisibility(viewModel.doneBtnIsVisibleState.value!!)
-//            if (viewModel.doneBtnIsVisibleState.value!!) {
-//                viewModel.updateUndoBtnEnabled(true)
-//                undoBtn.isEnabled = viewModel.isUndoBtnEnabled.value!!
-//            }
             viewModel.noteChanged(text.toString())
         }
         val titleTextChangeListener = titleText.addTextChangedListener { text ->
             viewModel.updateDoneBtnVisibility(text.toString() != args.note.title)
             viewModel.enableUndoBtn()
-//            btnVisibility(viewModel.doneBtnIsVisibleState.value!!)
-//            if (viewModel.doneBtnIsVisibleState.value!!) {
-//                viewModel.updateUndoBtnEnabled(true)
-//                undoBtn.isEnabled = viewModel.isUndoBtnEnabled.value!!
-//            }
             viewModel.titleChanged(text.toString())
         }
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
@@ -108,21 +97,6 @@ class UpdateNoteFragment : Fragment() {
             val previousNote = viewModel.undo()
             titleText.setText(previousNote.title)
             noteText.setText(previousNote.note)
-
-
-//            viewModel.updateRedoBtnEnabled(true)
-//            redoBtn.isEnabled = viewModel.isRedoBtnEnabled.value!!
-//            if (currentTextBufferIndex < changeTextBuffer.size) {
-//                currentTextBufferIndex += 1
-//                val currentNote = changeTextBuffer[changeTextBuffer.size - currentTextBufferIndex]
-//                titleText.setText(currentNote.title)
-//                noteText.setText(currentNote.note)
-//            } else {
-//                if (currentTextBufferIndex == changeTextBuffer.size) {
-//                    viewModel.updateUndoBtnEnabled(false)
-//                    undoBtn.isEnabled = viewModel.isUndoBtnEnabled.value!!
-//                }
-//            }
             titleText.addTextChangedListener(titleTextChangeListener)
             noteText.addTextChangedListener(noteTextChangeListener)
             true
@@ -134,23 +108,6 @@ class UpdateNoteFragment : Fragment() {
             val nextNote = viewModel.redo()
             titleText.setText(nextNote.title)
             noteText.setText(nextNote.note)
-
-
-//            viewModel.updateUndoBtnEnabled(true)
-//            undoBtn.isEnabled = viewModel.isUndoBtnEnabled.value!!
-//            if (currentTextBufferIndex > 1) {
-//                currentTextBufferIndex -= 1
-//                val currentNote = changeTextBuffer[changeTextBuffer.size - currentTextBufferIndex]
-//                binding.titleText.setText(currentNote.title)
-//                binding.noteText.setText(currentNote.note)
-//            } else {
-//                if (currentTextBufferIndex == 1) {
-//                    viewModel.updateRedoBtnEnabled(false)
-//                    redoBtn.isEnabled = viewModel.isRedoBtnEnabled.value!!
-//                    viewModel.updateUndoBtnEnabled(true)
-//                    undoBtn.isEnabled = viewModel.isUndoBtnEnabled.value!!
-//                }
-//            }
             titleText.addTextChangedListener(titleTextChangeListener)
             noteText.addTextChangedListener(noteTextChangeListener)
             true

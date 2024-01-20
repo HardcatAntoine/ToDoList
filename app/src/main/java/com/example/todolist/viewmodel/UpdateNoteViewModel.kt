@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class UpdateNoteViewModel @Inject constructor(
     private val repository: NotesRepository,
-    private val savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     val note: Note = savedStateHandle["note"] ?: Note(null, "", "", "")
