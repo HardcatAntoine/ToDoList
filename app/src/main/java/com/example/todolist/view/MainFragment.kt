@@ -10,16 +10,16 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todolist.R
-import com.example.todolist.data.local.Nodes
+import com.example.todolist.data.local.Note
 import com.example.todolist.databinding.FragmentMainBinding
-import com.example.todolist.viewmodel.NodesViewModel
+import com.example.todolist.viewmodel.NotesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainFragment : Fragment(), ItemActionListener {
-    lateinit var binding: FragmentMainBinding
-    private val adapter = NodesAdapter()
-    private val viewModel: NodesViewModel by viewModels()
+    private lateinit var binding: FragmentMainBinding
+    private val adapter = NotesAdapter()
+    private val viewModel: NotesViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,42 +32,42 @@ class MainFragment : Fragment(), ItemActionListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
-        viewModel.getNodesList()
+        viewModel.getNotesList()
         observers()
         binding.addBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_createNodeFragment)
+            findNavController().navigate(R.id.action_mainFragment_to_createNoteFragment)
         }
 
     }
 
     private fun initAdapter() {
-        binding.rvNodes.adapter = adapter
+        binding.rvNotes.adapter = adapter
         adapter.setItemActionListener(this)
-        binding.rvNodes.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvNotes.layoutManager = LinearLayoutManager(requireContext())
     }
 
     private fun observers() {
-        viewModel.listNodes.observe(viewLifecycleOwner) { nodes ->
-            adapter.setList(nodes)
+        viewModel.listNote.observe(viewLifecycleOwner) { notes ->
+            adapter.setList(notes)
         }
     }
 
-    override fun onItemLongClick(node: Nodes, view: View) {
-        showPopUpMenu(node, view)
+    override fun onItemLongClick(note: Note, view: View) {
+        showPopUpMenu(note, view)
     }
 
-    override fun onItemClick(node: Nodes) {
-        val action = MainFragmentDirections.actionMainFragmentToUpdateNodeFragment(node)
+    override fun onItemClick(note: Note) {
+        val action = MainFragmentDirections.actionMainFragmentToUpdateNoteFragment(note)
         findNavController().navigate(action)
     }
 
-    private fun showPopUpMenu(node: Nodes, view: View) {
+    private fun showPopUpMenu(note: Note, view: View) {
         val popupMenu = PopupMenu(requireContext(), view)
         popupMenu.menuInflater.inflate(R.menu.pop_up_menu, popupMenu.menu)
         popupMenu.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.popup_menu_delete -> {
-                    viewModel.removeNode(node)
+                    viewModel.removeNote(note)
                     true
                 }
 

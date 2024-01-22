@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.CreateNodeFragment">
+    tools:context=".view.UpdateNoteFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -21,42 +21,43 @@
             android:minHeight="?attr/actionBarSize"
             app:menu="@menu/top_app_bar"
             app:navigationIcon="@drawable/back_icon"
-            app:title="@string/create_note" />
+            app:title="@string/update" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <EditText
-        android:id="@+id/title_tv"
+        android:id="@+id/title_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:hint="@string/title"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:background="@android:color/transparent"
-        android:cursorVisible="true"
-        android:hint="@string/title"
-        android:textAlignment="textStart"
+        android:gravity="start"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
     <EditText
-        android:id="@+id/node_text"
+        android:id="@+id/note_text"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:hint="@string/note_text"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
         android:background="@android:color/transparent"
-        android:cursorVisible="true"
         android:gravity="start"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/title_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

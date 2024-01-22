@@ -6,7 +6,10 @@
     <string name="note_text">Note text</string>
     <string name="your_note">Your note</string>
     <string name="update">Update note</string>
-    <string name="done">done</string>
+    <string name="done">Done</string>
     <string name="delete">Delete</string>
     <string name="delete_note">Delete note</string>
+    <string name="share">Share</string>
+    <string name="undo">Undo</string>
+    <string name="redo">Redo</string>
 </resources>
