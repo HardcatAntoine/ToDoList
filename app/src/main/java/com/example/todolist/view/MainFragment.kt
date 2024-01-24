@@ -4,25 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.combinedClickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -61,7 +43,9 @@ class MainFragment : Fragment(), ItemActionListener {
     private fun observers() {
         viewModel.listNote.observe(viewLifecycleOwner) { notes ->
             recyclerCompose.setContent {
-                NotesListView(notes = notes, clickListener = this)
+                NotesListView(notes = notes, clickListener = this){
+                    viewModel.removeNote(it)
+                }
             }
         }
     }
@@ -74,24 +58,9 @@ class MainFragment : Fragment(), ItemActionListener {
         val action = MainFragmentDirections.actionMainFragmentToUpdateNoteFragment(note)
         findNavController().navigate(action)
     }
-
-//    private fun showPopUpMenu(note: Note, view: View) {
-//        val popupMenu = PopupMenu(requireContext(), view)
-//        popupMenu.menuInflater.inflate(R.menu.pop_up_menu, popupMenu.menu)
-//        popupMenu.setOnMenuItemClickListener { menuItem ->
-//            when (menuItem.itemId) {
-//                R.id.popup_menu_delete -> {
-//                    viewModel.removeNote(note)
-//                    true
-//                }
-//
-//                else -> false
-//            }
-//
-//        }
-//        popupMenu.show()
-//    }
-
 }
+
+
+
 
 
