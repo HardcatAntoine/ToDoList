@@ -28,14 +28,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.todolist.R
 import com.example.todolist.data.local.Note
-import com.example.todolist.view.ItemActionListener
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun NotesListView(
     notes: List<Note>,
-    clickListener: ItemActionListener,
-    onDeleteClick: (Note) -> Unit
+    onDeleteClick: (Note) -> Unit,
+    onItemClick: (Note) -> Unit
 ) {
     Column(Modifier.fillMaxSize()) {
         TopAppBar(title = { Text(text = "Notebook") })
@@ -51,7 +50,7 @@ fun NotesListView(
                             .fillMaxWidth()
                             .padding(top = 4.dp, bottom = 6.dp)
                             .combinedClickable(
-                                onClick = { clickListener.onItemClick(it) },
+                                onClick = { onItemClick(it) },
                                 onLongClick = { showMenu = true }
                             ),
                         elevation = 3.dp,
