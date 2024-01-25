@@ -4,7 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.FloatingActionButtonDefaults
+import androidx.compose.material.FloatingActionButtonElevation
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.primarySurface
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -19,6 +31,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainFragment : Fragment(), ItemActionListener {
     private lateinit var binding: FragmentMainBinding
     private lateinit var recyclerCompose: ComposeView
+    private lateinit var addBtn: ComposeView
     private val viewModel: NotesViewModel by viewModels()
 
     override fun onCreateView(
@@ -33,25 +46,27 @@ class MainFragment : Fragment(), ItemActionListener {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getNotesList()
         recyclerCompose = binding.rvNotes
-        observers()
-        binding.addBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_createNoteFragment)
+        addBtn = binding.addBtn
+        addBtn.setContent {
+            FloatingActionButton(
+                onClick = { findNavController().navigate(R.id.action_mainFragment_to_createNoteFragment) },
+                shape = RoundedCornerShape(15.dp),
+                elevation = FloatingActionButtonDefaults.elevation(10.dp),
+                backgroundColor = MaterialTheme.colors.primarySurface
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.add_icon),
+                    contentDescription = "Add"
+                )
+            }
         }
-
-    }
-
-    private fun observers() {
         viewModel.listNote.observe(viewLifecycleOwner) { notes ->
             recyclerCompose.setContent {
-                NotesListView(notes = notes, clickListener = this){
+                NotesListView(notes = notes, clickListener = this) {
                     viewModel.removeNote(it)
                 }
             }
         }
-    }
-
-    override fun onItemLongClick(note: Note, view: View) {
-
     }
 
     override fun onItemClick(note: Note) {
