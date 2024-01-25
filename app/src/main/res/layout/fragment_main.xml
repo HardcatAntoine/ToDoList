@@ -7,7 +7,7 @@
     tools:context=".view.MainFragment">
 
     <androidx.compose.ui.platform.ComposeView
-        android:id="@+id/rvNotes"
+        android:id="@+id/mainFragmentUi"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
