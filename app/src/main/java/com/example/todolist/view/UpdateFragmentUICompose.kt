@@ -41,8 +41,8 @@ fun UpdateFragmentUICompose(
     Column(Modifier.fillMaxSize()) {
         var showDoneBtn by remember { mutableStateOf(false) }
         var showMenu by remember { mutableStateOf(false) }
-        var enableUndoBtn by remember { mutableStateOf(false) }
-        var enableRedoBtn by remember { mutableStateOf(false) }
+        var enableUndoBtn by remember { mutableStateOf(viewModel.isUndoBtnEnabled.value!!) }
+        var enableRedoBtn by remember { mutableStateOf(viewModel.isRedoBtnEnabled.value!!) }
         var title by remember { mutableStateOf(note.title) }
         var noteText by remember { mutableStateOf(note.note) }
         TopAppBar(title = { Text(text = "Your note") },
@@ -122,9 +122,16 @@ fun UpdateFragmentUICompose(
                     }
 
                 } else {
-                    IconButton(onClick = {
-                        if (enableUndoBtn) enableRedoBtn = true
-                    }) {
+                    IconButton(
+                        onClick = {
+                            if (enableUndoBtn) {
+                                enableRedoBtn = true
+                                title = viewModel.undo().title
+                                noteText = viewModel.undo().note
+                            }
+                        },
+                        enabled = enableUndoBtn
+                    ) {
                         Icon(
                             painter = if (enableUndoBtn) {
                                 painterResource(id = R.drawable.undo_icon_enabled)
@@ -133,9 +140,16 @@ fun UpdateFragmentUICompose(
                             }, contentDescription = "undo"
                         )
                     }
-                    IconButton(onClick = {
-                        if (enableRedoBtn) enableUndoBtn = true
-                    }) {
+                    IconButton(
+                        onClick = {
+                            if (enableRedoBtn) {
+                                enableUndoBtn = true
+                                title = viewModel.redo().title
+                                noteText = viewModel.redo().note
+                            }
+                        },
+                        enabled = enableRedoBtn
+                    ) {
                         Icon(
                             painter = if (enableRedoBtn) {
                                 painterResource(id = R.drawable.redo_icon_enabled)
