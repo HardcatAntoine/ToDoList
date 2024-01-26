@@ -35,16 +35,16 @@ fun UpdateFragmentUICompose(
     note: Note,
     viewModel: UpdateNoteViewModel,
     onBackClick: () -> Unit,
-//    onUndoClick: () -> Unit,
-//    onRedoClick: () -> Unit
 ) {
     Column(Modifier.fillMaxSize()) {
         var showDoneBtn by remember { mutableStateOf(false) }
         var showMenu by remember { mutableStateOf(false) }
-        var enableUndoBtn by remember { mutableStateOf(viewModel.isUndoBtnEnabled.value!!) }
-        var enableRedoBtn by remember { mutableStateOf(viewModel.isRedoBtnEnabled.value!!) }
+        var enableUndoBtn by remember { mutableStateOf(false) }
+        var enableRedoBtn by remember { mutableStateOf(false) }
         var title by remember { mutableStateOf(note.title) }
         var noteText by remember { mutableStateOf(note.note) }
+        var changedTitle by remember { mutableStateOf(note.title) }
+        var changedNote by remember { mutableStateOf(note.note) }
         TopAppBar(title = { Text(text = "Your note") },
             navigationIcon = {
                 IconButton(onClick = { onBackClick() }) {
@@ -126,8 +126,12 @@ fun UpdateFragmentUICompose(
                         onClick = {
                             if (enableUndoBtn) {
                                 enableRedoBtn = true
-                                title = viewModel.undo().title
-                                noteText = viewModel.undo().note
+                                val changeNote = viewModel.undo()
+                                title = changeNote.title
+                                noteText = changeNote.note
+                                if (changeNote == note) {
+                                    enableUndoBtn = false
+                                }
                             }
                         },
                         enabled = enableUndoBtn
@@ -144,8 +148,12 @@ fun UpdateFragmentUICompose(
                         onClick = {
                             if (enableRedoBtn) {
                                 enableUndoBtn = true
-                                title = viewModel.redo().title
-                                noteText = viewModel.redo().note
+                                val changeNote = viewModel.redo()
+                                title = changeNote.title
+                                noteText = changeNote.note
+                                if (title == changedTitle && noteText == changedNote) {
+                                    enableRedoBtn = false
+                                }
                             }
                         },
                         enabled = enableRedoBtn
@@ -176,6 +184,7 @@ fun UpdateFragmentUICompose(
             textStyle = TextStyle(fontSize = 20.sp, fontWeight = FontWeight(500)),
             value = title,
             onValueChange = {
+                changedTitle = it
                 title = it
                 viewModel.titleChanged(it)
                 enableUndoBtn = true
@@ -188,6 +197,7 @@ fun UpdateFragmentUICompose(
                 .padding(top = 16.dp, start = 8.dp, end = 8.dp),
             value = noteText,
             onValueChange = {
+                changedNote = it
                 noteText = it
                 viewModel.noteChanged(it)
                 enableUndoBtn = true
