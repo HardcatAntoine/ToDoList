@@ -1,28 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.compose.ui.platform.ComposeView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainFragmentUi"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.MainFragment">
-
-    <androidx.compose.ui.platform.ComposeView
-        android:id="@+id/mainFragmentUi"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </androidx.compose.ui.platform.ComposeView>
-
-    <androidx.compose.ui.platform.ComposeView
-        android:id="@+id/add_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:contentDescription="@string/app_name"
-        android:stateListAnimator="@animator/my_button_animator"
-        app:srcCompat="@drawable/add_icon"/>
+    tools:context=".view.MainFragment"/>
 
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
