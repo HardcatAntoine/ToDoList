@@ -1,4 +1,4 @@
-package com.example.todolist.view.composecomponents
+package com.example.todolist.view.compose_components
 
 import android.util.Log
 import androidx.compose.foundation.layout.Column

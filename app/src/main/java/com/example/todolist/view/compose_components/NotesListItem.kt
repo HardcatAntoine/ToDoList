@@ -1,4 +1,4 @@
-package com.example.todolist.view.composecomponents
+package com.example.todolist.view.compose_components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
