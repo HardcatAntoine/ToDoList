@@ -55,15 +55,7 @@ class MainFragment : Fragment() {
         }
         viewModel.listNote.observe(viewLifecycleOwner) { notes ->
             recyclerCompose.setContent {
-                NotesListView(notes = notes,
-                    onDeleteClick = {
-                        viewModel.removeNote(it)
-                    },
-                    onItemClick = {
-                        val action =
-                            MainFragmentDirections.actionMainFragmentToUpdateNoteFragment(it)
-                        findNavController().navigate(action)
-                    })
+                NotesListView(notes = notes, viewModel = viewModel, navController = findNavController())
             }
         }
     }
