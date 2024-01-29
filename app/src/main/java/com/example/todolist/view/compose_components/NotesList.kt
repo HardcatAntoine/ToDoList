@@ -10,7 +10,7 @@ import com.example.todolist.data.local.Note
 import com.example.todolist.viewmodel.NotesViewModel
 
 @Composable
-fun NotesList(notes: List<Note>, navController: NavController, viewModel: NotesViewModel) {
+fun NotesList(notes: List<Note>, onItemClick: (Note) -> Unit, onDeleteClick: (Note) -> Unit) {
     LazyColumn(
         modifier = Modifier.padding(start = 8.dp, end = 8.dp),
         userScrollEnabled = true
@@ -18,9 +18,9 @@ fun NotesList(notes: List<Note>, navController: NavController, viewModel: NotesV
         notes.forEach { note ->
             item {
                 NotesListItem(
-                    navController = navController,
                     note = note,
-                    viewModel = viewModel
+                    onItemClick = { onItemClick(note) },
+                    onDeleteClick = { onDeleteClick(note) }
                 )
             }
         }
