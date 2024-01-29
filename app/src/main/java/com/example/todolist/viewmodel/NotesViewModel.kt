@@ -21,7 +21,7 @@ class NotesViewModel @Inject constructor(
     private val _notes = MutableStateFlow(listOf(Note(note = "", title = "", time = "")))
     val notes = _notes.asStateFlow()
 
-    fun getNotesList() {
+    init {
         viewModelScope.launch {
             _notes.update { repository.getListNotes() }
         }

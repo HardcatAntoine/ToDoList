@@ -22,7 +22,6 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel.getNotesList()
         return ComposeView(requireActivity()).apply {
             setContent {
                 MainScreen(
