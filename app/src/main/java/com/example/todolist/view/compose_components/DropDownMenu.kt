@@ -32,47 +32,35 @@ fun DropDownMenu(
             elevation = 3.dp
         ) {
             Column {
-                DropdownMenuItem(
-                    onClick = {
-                        onDeleteClick(note)
-                        onShowMenu(false)
-                        Log.d("MENU CLICK", "Delete click")
-                    }) {
-                    Row {
-                        Icon(
-                            modifier = Modifier.padding(
-                                start = 2.dp,
-                                end = 3.dp
-                            ),
-                            painter = painterResource(id = R.drawable.delete_icon),
-                            contentDescription = "delete",
-
-                            )
-                        Text(text = "Delete")
-                    }
+                MenuItem(text = "Delete", iconId = R.drawable.delete_icon) {
+                    onDeleteClick(note)
+                    onShowMenu(false)
+                    Log.d("MENU CLICK", "Delete click")
                 }
-                DropdownMenuItem(
-                    onClick = {
-                        onShowMenu(false)
-                        Log.d("MENU CLICK", "Share click")
-                    },
-                    modifier = Modifier,
-                ) {
-                    Row {
-                        Icon(
-                            modifier = Modifier.padding(
-                                start = 2.dp,
-                                end = 3.dp
-                            ),
-                            painter = painterResource(id = R.drawable.share_icon),
-                            contentDescription = "share"
-                        )
-                        Text(text = "Share")
-                    }
-
+                MenuItem(text = "Share", iconId = R.drawable.share_icon) {
+                    onShowMenu(false)
+                    Log.d("MENU CLICK", "Share click")
                 }
             }
         }
     }
+}
 
+@Composable
+fun MenuItem(text: String, iconId: Int, onClick: () -> Unit) {
+    DropdownMenuItem(
+        onClick = onClick
+    ) {
+        Row {
+            Icon(
+                modifier = Modifier.padding(
+                    start = 2.dp,
+                    end = 3.dp
+                ),
+                painter = painterResource(id = iconId),
+                contentDescription = text,
+            )
+            Text(text = text)
+        }
+    }
 }
