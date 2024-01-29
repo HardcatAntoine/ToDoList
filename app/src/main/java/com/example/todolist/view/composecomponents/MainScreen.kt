@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.FloatingActionButtonDefaults
@@ -30,20 +29,7 @@ fun MainScreen(
     Box {
         Column(Modifier.fillMaxSize()) {
             TopBar()
-            LazyColumn(
-                modifier = Modifier.padding(start = 8.dp, end = 8.dp),
-                userScrollEnabled = true
-            ) {
-                notes.forEach { note ->
-                    item {
-                        NotesListItem(
-                            navController = navController,
-                            note = note,
-                            viewModel = viewModel
-                        )
-                    }
-                }
-            }
+            NotesList(notes = notes, navController = navController, viewModel = viewModel)
         }
         FloatingActionButton(
             modifier = Modifier
