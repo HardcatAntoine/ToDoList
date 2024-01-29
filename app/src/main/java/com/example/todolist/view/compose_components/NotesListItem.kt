@@ -26,23 +26,17 @@ import com.example.todolist.viewmodel.NotesViewModel
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun NotesListItem(
-    navController: NavController,
     note: Note,
-    viewModel: NotesViewModel
-){
+    onItemClick: (Note) -> Unit,
+    onDeleteClick: (Note) -> Unit
+) {
     var showMenu by remember { mutableStateOf(false) }
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 4.dp, bottom = 6.dp)
             .combinedClickable(
-                onClick = {
-                    navController.navigate(
-                        MainFragmentDirections.actionMainFragmentToUpdateNoteFragment(
-                            note
-                        )
-                    )
-                },
+                onClick = { onItemClick(note) },
                 onLongClick = { showMenu = true }
             ),
         elevation = 3.dp,
@@ -53,10 +47,10 @@ fun NotesListItem(
             DropDownMenu(
                 note = note,
                 onDeleteClick = {
-                    viewModel.removeNote(note)
+                    onDeleteClick(note)
                     showMenu = false
                 },
-                onShowMenu = { showMenu }
+                onShowMenu = { showMenu = false }
             )
         }
         Column(
