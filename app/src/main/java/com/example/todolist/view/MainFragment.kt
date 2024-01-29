@@ -13,6 +13,7 @@ import com.example.todolist.view.screens.MainScreen
 import com.example.todolist.viewmodel.NotesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class MainFragment : Fragment() {
     private val viewModel: NotesViewModel by viewModels()
