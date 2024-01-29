@@ -22,10 +22,11 @@ class MainFragment : Fragment() {
     ): View {
         viewModel.getNotesList()
         return ComposeView(requireActivity()).apply {
-            viewModel.listNote.observe(viewLifecycleOwner) { notes ->
-                setContent {
-                    MainScreen(notes = notes, viewModel = viewModel, navController = findNavController())
-                }
+            setContent {
+                MainScreen(
+                    viewModel = viewModel,
+                    navController = findNavController()
+                )
             }
         }
     }
