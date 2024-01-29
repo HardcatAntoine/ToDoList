@@ -1,4 +1,4 @@
-package com.example.todolist.view.composecomponents
+package com.example.todolist.view.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,6 +18,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.todolist.R
 import com.example.todolist.data.local.Note
+import com.example.todolist.view.composecomponents.NotesList
+import com.example.todolist.view.composecomponents.TopBar
 import com.example.todolist.viewmodel.NotesViewModel
 
 @Composable
