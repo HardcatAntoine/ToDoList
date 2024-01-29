@@ -35,70 +35,14 @@ fun NotesListView(
     navController: NavController
 ) {
     Column(Modifier.fillMaxSize()) {
-        TopAppBar(title = { Text(text = "Notebook") })
+
         LazyColumn(
             modifier = Modifier.padding(start = 8.dp, end = 8.dp),
             userScrollEnabled = true
         ) {
             notes.forEach { note ->
                 item {
-                    var showMenu by remember { mutableStateOf(false) }
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 4.dp, bottom = 6.dp)
-                            .combinedClickable(
-                                onClick = {
-                                    navController.navigate(
-                                        MainFragmentDirections.actionMainFragmentToUpdateNoteFragment(
-                                            note
-                                        )
-                                    )
-                                },
-                                onLongClick = { showMenu = true }
-                            ),
-                        elevation = 3.dp,
-                        shape = RoundedCornerShape(10.dp),
-
-                        ) {
-                        if (showMenu) {
-                            DropDownMenu(
-                                note = note,
-                                onDeleteClick = {
-                                    viewModel.removeNote(note)
-                                    showMenu = false
-                                },
-                                onShowMenu = { showMenu }
-                            )
-                        }
-                        Column(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(top = 4.dp, bottom = 4.dp, start = 8.dp, end = 8.dp)
-                        ) {
-                            if (note.title.isNotEmpty()) {
-                                Text(
-                                    text = note.title,
-                                    fontWeight = FontWeight(550),
-                                    fontSize = 20.sp,
-                                    maxLines = 3
-                                )
-                            }
-                            if (note.note.isNotEmpty()) {
-                                Text(
-                                    modifier = Modifier.padding(top = 2.dp),
-                                    text = note.note,
-                                    maxLines = 3
-                                )
-                            }
-                            Text(
-                                modifier = Modifier.padding(top = 2.dp),
-                                text = note.time,
-                                fontSize = 10.sp,
-                            )
-                        }
-
-                    }
+                    NotesListItem(navController = navController, note = note, viewModel = viewModel)
                 }
             }
         }
