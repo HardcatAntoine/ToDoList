@@ -1,7 +1,6 @@
 package com.example.todolist.view.screens
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Scaffold
@@ -24,9 +23,9 @@ fun MainScreen(
 ) {
     val notes = notesList.collectAsState()
     Scaffold(
+        topBar = { TopBar() },
         content = {
             Column(Modifier.fillMaxSize()) {
-                TopBar()
                 NotesList(
                     notes = notes.value,
                     onItemClick = { onItemClick(it) },
