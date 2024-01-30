@@ -16,12 +16,8 @@ import androidx.compose.ui.unit.dp
 import com.example.todolist.R
 
 @Composable
-fun AddNoteButton(boxScope: BoxScope, onAddButtonClick: () -> Unit) {
-    boxScope.apply {
+fun AddNoteButton( onAddButtonClick: () -> Unit) {
         FloatingActionButton(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(24.dp),
             onClick = { onAddButtonClick() },
             shape = RoundedCornerShape(15.dp),
             elevation = FloatingActionButtonDefaults.elevation(10.dp),
@@ -32,5 +28,4 @@ fun AddNoteButton(boxScope: BoxScope, onAddButtonClick: () -> Unit) {
                 contentDescription = "Add"
             )
         }
-    }
 }
